@@ -11,6 +11,7 @@ class AppwriteService {
             .setProject(config.appwriteProjectId);
         this.account = new Account(this.client);
     }
+
 }
 
 const appwriteService = new AppwriteService();

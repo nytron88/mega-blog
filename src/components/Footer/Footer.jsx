@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 function Footer() {
   return (
@@ -15,16 +16,26 @@ function Footer() {
             </span>
           </p>
           <div className="flex items-center space-x-4 mt-2">
-            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-              Twitter
+            {/* GitHub Link */}
+            <a
+              href="https://github.com/nytron88"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center space-x-2"
+            >
+              <FaGithub size={20} />
+              <span>GitHub</span>
             </a>
             <span className="text-gray-600">•</span>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-              GitHub
-            </a>
-            <span className="text-gray-600">•</span>
-            <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-              LinkedIn
+            {/* LinkedIn Link */}
+            <a
+              href="https://www.linkedin.com/in/sidjain88tx/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center space-x-2"
+            >
+              <FaLinkedin size={20} />
+              <span>LinkedIn</span>
             </a>
           </div>
           <div className="text-sm text-gray-500 mt-4">
@@ -34,6 +45,6 @@ function Footer() {
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;

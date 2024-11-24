@@ -1,5 +1,6 @@
 import { Client, Account, ID } from "appwrite";
 import config from '../config/config';
+import { BiErrorAlt } from "react-icons/bi";
 
 class AuthService {
     client;
@@ -21,7 +22,7 @@ class AuthService {
                 return userAccount;
             }
         } catch (error) {
-            console.log("Error signing up", error);
+            throw error;
         }
     }
 
@@ -30,7 +31,7 @@ class AuthService {
             const session = await this.account.createEmailPasswordSession(email, password);
             return session;
         } catch (error) {
-            console.log("Error logging in", error);
+            throw error;
         }
     }
 

@@ -7,7 +7,6 @@ import authService from "../../appwrite/auth";
 function LogoutBtn() {
   const dispatch = useDispatch();
   const logoutHandler = () => {
-    console.log("Logout");
     dispatch(logout());
     authService.logout();
   }

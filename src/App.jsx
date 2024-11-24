@@ -1,17 +1,52 @@
-import React from "react"
-import { Outlet } from "react-router-dom"
-import Header from "./components/Header/Header"
-import Footer from "./components/Footer/Footer"
+import React, { useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import authService from "./appwrite/auth";
+import { useDispatch } from "react-redux";
+import { login, logout } from "./store/authSlice";
+import { Header, Footer, Loader } from "./components";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    authService.getCurrentUser().then((userData) => {
+      if (userData) {
+        dispatch(login({ userData }));
+        setLoading(false);
+      } else {
+        dispatch(logout());
+        setLoading(false);
+      }
+    });
+  }, []);
 
   return (
+    // <>
+    //   {loading ? (
+    //     <Loader />
+    //   ) : (
+    //     <div className="flex flex-col min-h-screen">
+    //       <Header />
+    //       <main className="flex-grow">
+    //         <Outlet />
+    //       </main>
+    //       <Footer />
+    //     </div>
+    //   )}
+    // </>
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Header />
+          <Outlet />
+          <Footer />
+        </>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
