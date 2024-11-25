@@ -114,7 +114,7 @@ class AppwriteService {
         }
     }
 
-    async getFilePreview(fileId) {
+    getFilePreview(fileId) {
         try {
             return this.storage.getFilePreview(
                 config.appwriteBucketId,

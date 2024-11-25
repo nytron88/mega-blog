@@ -5,12 +5,15 @@ import App from './App.jsx'
 import { Provider } from 'react-redux'
 import { store } from './store/store.js'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
-import {Login, Signup} from './pages'
+import {Login, Signup, Home, AllPosts} from './pages'
 import { AuthLayout } from './components/index.js'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
+      <Route path="" element={
+        <Home />
+      }/>
       <Route path="login" element={
         <AuthLayout authentication={false}>
           <Login />
@@ -23,7 +26,7 @@ const router = createBrowserRouter(
       } />
       <Route path="all-posts" element={
         <AuthLayout authentication>
-          <div className='text-white'>All Posts</div>
+          <AllPosts />
         </AuthLayout>
       } />
       <Route path="add-post" element={
