@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { Button, Loader, PostCard } from '../components';
 import { useSelector } from 'react-redux';
 import appwriteService from '../appwrite/appwriteService';
+import { Query } from 'appwrite';
 
 function Home() {
   const authStatus = useSelector((state) => state.auth.isAuthenticated);
+  const currentUserData = useSelector((state) => state.auth.userData);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -13,17 +15,17 @@ function Home() {
     const fetchPosts = async () => {
       if (authStatus) {
         try {
-          const response = await appwriteService.getPosts([]);
+          const response = await appwriteService.getPosts([Query.equal("userId", currentUserData.$id)]);
           setPosts(response.documents);
         } catch (error) {
           console.error("Error getting posts:", error);
         }
       }
-      setLoading(false); // Ensures loading stops after fetching data or error
+      setLoading(false);
     };
 
     fetchPosts();
-  }, [authStatus]); // Add authStatus as a dependency
+  }, [authStatus]);
 
   const previewArticles = [
     {
@@ -53,7 +55,31 @@ function Home() {
       ) : (
         <>
           {authStatus ? (
-            <div className='container mx-auto px-4 py-16'>
+            <div className="container mx-auto px-4 py-16">
+              {/* Post Count Banner */}
+              <div className="mb-8 text-center">
+                <h2 className="text-2xl font-bold text-white">
+                  {posts.length === 0 ? (
+                    <div className="bg-gray-800/50 mt-16">
+                      <div className="container mx-auto px-4 py-16">
+                        <div className="text-center max-w-2xl mx-auto space-y-6">
+                          <h2 className="text-3xl font-bold text-white">Ready to start writing?</h2>
+                          <p className="text-gray-300">
+                            Join our community and share your stories with readers around the world.
+                          </p>
+                          <Link to="/add-post" className="inline-block">
+                            <Button className="cursor-pointer">
+                              <span className="px-8">Start Writing</span>
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ) :  <>{`You have ${posts.length} ${posts.length === 1 ? "post" : "posts"}`}</>}
+                </h2>
+              </div>
+
+              {/* Posts Grid */}
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {posts.map((post) => (
                   <PostCard key={post.$id} {...post} />
