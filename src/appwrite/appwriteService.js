@@ -32,10 +32,11 @@ class AppwriteService {
             )
         } catch (error) {
             console.log("Error creating post", error);
+            throw error;
         }
     }
 
-    async updatePost(slug, { title, content, featuredImage, status, userId }) {
+    async updatePost(slug, { title, content, featuredImage, status }) {
         try {
             return await this.databases.updateDocument(
                 config.appwriteDatabaseId,
@@ -49,7 +50,7 @@ class AppwriteService {
                 }
             )
         } catch (error) {
-            console.log("Error updating post", error);
+            throw error;
         }
     }
 
@@ -61,7 +62,7 @@ class AppwriteService {
                 slug
             )
         } catch (error) {
-            console.log("Error deleting post", error);
+            throw error;
         }
     }
 
@@ -73,7 +74,7 @@ class AppwriteService {
                 slug
             )
         } catch (error) {
-            console.log("Error getting post", error);
+            throw error;
         }
     }
 
@@ -99,7 +100,7 @@ class AppwriteService {
                 file
             )
         } catch (error) {
-            console.log("Error uploading file", error);
+            throw error;
         }
     }
 
@@ -110,7 +111,7 @@ class AppwriteService {
                 fileId
             )
         } catch (error) {
-            console.log("Error deleting file", error);
+            throw error;
         }
     }
 

@@ -54,6 +54,7 @@ function Signup() {
               label="Full Name"
               placeholder="John Doe"
               type="text"
+              className="text-gray-100"
               {...register("name", {
                 required: true,
               })}
@@ -62,6 +63,7 @@ function Signup() {
               label="Email"
               placeholder="johndoe@example.com"
               type="email"
+              className="text-gray-100"
               {...register("email", {
                 required: true,
                 validate: {
@@ -74,6 +76,7 @@ function Signup() {
               label="Password"
               placeholder="Enter your password"
               type="password"
+              className="text-gray-100"
               {...register("password", {
                 required: true,
               })}

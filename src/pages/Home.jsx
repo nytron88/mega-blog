@@ -14,12 +14,8 @@ function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       if (authStatus) {
-        try {
-          const response = await appwriteService.getPosts([Query.equal("userId", currentUserData.$id)]);
-          setPosts(response.documents);
-        } catch (error) {
-          console.error("Error getting posts:", error);
-        }
+        const response = await appwriteService.getPosts([Query.equal("userId", currentUserData.$id)]);
+        setPosts(response.documents);
       }
       setLoading(false);
     };
@@ -75,7 +71,7 @@ function Home() {
                         </div>
                       </div>
                     </div>
-                  ) :  <>{`You have ${posts.length} ${posts.length === 1 ? "post" : "posts"}`}</>}
+                  ) : <>{`You have ${posts.length} ${posts.length === 1 ? "post" : "posts"}`}</>}
                 </h2>
               </div>
 

@@ -13,14 +13,20 @@ function Post() {
   const currentUserData = useSelector((state) => state.auth.userData);
 
   useEffect(() => {
-    if (slug) {
-      appwriteService.getPost(slug)
-        .then((post) => {
-          if (post) setPost(post);
-          else navigate('/');
-        })
-        .finally(() => setLoading(false));
+    
+    const fetchPost = async () => {
+      try {
+        const post = await appwriteService.getPost(slug);
+        setPost(post);
+      } catch (error) {
+        if (currentUserData) {
+          navigate('/');
+        }
+      }
     }
+
+    fetchPost().finally(() => setLoading(false));
+
   }, [slug, navigate]);
 
   const handleDelete = () => {

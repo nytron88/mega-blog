@@ -2,24 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { PostForm, Loader } from '../components'
 import { useParams, useNavigate } from 'react-router-dom'
 import appwriteService from '../appwrite/appwriteService'
+import { useSelector } from 'react-redux'
 
 function EditPost() {
 
   const { slug } = useParams()
   const [post, setPost] = useState(null)
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
+  const currentUserData = useSelector(state => state.auth.userData)
 
   useEffect(() => {
     const fetchPost = async () => {
-      setLoading(true);
-      const post = await appwriteService.getPost(slug)
-      if (post) setPost(post);
+      try {
+        const post = await appwriteService.getPost(slug);
+        setPost(post);
+      } catch (error) {
+        if (currentUserData) {
+          navigate('/');
+        }
+      }
     }
-    if (slug) fetchPost().then(() => setLoading(false));
-    else navigate('/');
-
-  }, [slug])
+    fetchPost();
+  }, [navigate, slug])
 
   return (
     <>

@@ -1,6 +1,5 @@
 import { Client, Account, ID } from "appwrite";
 import config from '../config/config';
-import { BiErrorAlt } from "react-icons/bi";
 
 class AuthService {
     client;
